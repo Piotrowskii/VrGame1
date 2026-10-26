@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4159724200802874247
+--- !u!1 &518258965948005674
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 49182695978076877}
-  - component: {fileID: 2988111131964036828}
+  - component: {fileID: 3972414762410279960}
+  - component: {fileID: 8325498841523530464}
   m_Layer: 0
   m_Name: Maple Tree Fixed 2
   m_TagString: Untagged
@@ -17,29 +17,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &49182695978076877
+--- !u!4 &3972414762410279960
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4159724200802874247}
+  m_GameObject: {fileID: 518258965948005674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9186666641006566438}
+  - {fileID: 3572689287165225346}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &2988111131964036828
+--- !u!205 &8325498841523530464
 LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4159724200802874247}
+  m_GameObject: {fileID: 518258965948005674}
   serializedVersion: 2
   m_LocalReferencePoint: {x: 0, y: 0, z: 0}
   m_Size: 1
@@ -49,7 +49,8 @@ LODGroup:
   m_LODs:
   - screenRelativeHeight: 0
     fadeTransitionWidth: 0
-    renderers: []
+    renderers:
+    - renderer: {fileID: 3421261868654026846}
   - screenRelativeHeight: 0
     fadeTransitionWidth: 0
     renderers: []
@@ -57,7 +58,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
---- !u!1 &6889290764042755246
+--- !u!1 &3688422952393863195
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,9 +66,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9186666641006566438}
-  - component: {fileID: 995947037525884213}
-  - component: {fileID: 6448622832719260393}
+  - component: {fileID: 3572689287165225346}
+  - component: {fileID: 178243563997741679}
+  - component: {fileID: 3421261868654026846}
   m_Layer: 0
   m_Name: MapleTree_2
   m_TagString: Untagged
@@ -75,36 +76,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9186666641006566438
+--- !u!4 &3572689287165225346
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6889290764042755246}
+  m_GameObject: {fileID: 3688422952393863195}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 49182695978076877}
+  m_Father: {fileID: 3972414762410279960}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &995947037525884213
+--- !u!33 &178243563997741679
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6889290764042755246}
-  m_Mesh: {fileID: 6068356095497407140, guid: 0a40f843721f85a48b56e3fc4d91db39, type: 3}
---- !u!23 &6448622832719260393
+  m_GameObject: {fileID: 3688422952393863195}
+  m_Mesh: {fileID: -8112859131402433285, guid: 840cbd1ec0e353d4994c3c29d649258c, type: 3}
+--- !u!23 &3421261868654026846
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6889290764042755246}
+  m_GameObject: {fileID: 3688422952393863195}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -123,8 +124,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8319201030568261113, guid: 0a40f843721f85a48b56e3fc4d91db39, type: 3}
-  - {fileID: 8015367442301160396, guid: 0a40f843721f85a48b56e3fc4d91db39, type: 3}
+  - {fileID: 2100000, guid: eb91de22c39099d409d580ddefd51390, type: 2}
+  - {fileID: 2100000, guid: 99509940536b9544397bc340ae7a7d52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
