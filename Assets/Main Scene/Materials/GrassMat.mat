@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GrassMat
-  m_Shader: {fileID: -6465566751694194690, guid: 9171bc2b206adeb42a0d815df54db3b0, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f7aa6eda904035549a22baf3c0d6e44b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -101,7 +101,7 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
-    - _ChangeSwaingGrassColor: 1
+    - _ChangeSwaingGrassColor: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -114,7 +114,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightBlend: 1.4
+    - _HeightBlend: 10
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -128,7 +128,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TerrainOffset: 0
-    - _TerrainSize: 100
+    - _TerrainSize: 80
     - _UseTerrainColor: 1
     - _WindHeight: 0.5
     - _WindIntensity: 0.2
@@ -142,8 +142,8 @@ Material:
     - _BottomColor: {r: 0, g: 0.4264151, b: 0.24970253, a: 0}
     - _Color: {r: 0.0038233688, g: 0.6754716, b: 0.067037284, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0, g: 0, b: 0, a: 0}
-    - _NearColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FarColor: {r: 0, g: 1, b: 0.05730152, a: 0}
+    - _NearColor: {r: 0, g: 0.5471698, b: 0.15155661, a: 0}
     - _NearFarRange: {r: 10, g: 25, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
