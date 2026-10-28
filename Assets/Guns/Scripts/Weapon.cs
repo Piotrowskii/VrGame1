@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [Header("Weapon settings")]
     [Min(1)]
     public int magazineSize = 12;
+    public bool infiniteAmmo = false;
 
     [Min(0)]
     public int bulletsLeft = 12;
@@ -79,7 +80,7 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        if (bulletsLeft <= 0)
+        if (bulletsLeft <= 0 && infiniteAmmo == false)
         {
             emptyAudioSource.Play();
             nextShootTime = Time.time + shootDelayMs / 1000f;
@@ -102,7 +103,8 @@ public class Weapon : MonoBehaviour
 
         shootAudioSource.Play();
         PlayRecoilAnimation();
-        bulletsLeft--;
+
+        if(infiniteAmmo == false) bulletsLeft--;
 
         nextShootTime = Time.time + shootDelayMs / 1000f;
     }

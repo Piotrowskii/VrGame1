@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   magazineSize: 12
+  infiniteAmmo: 1
   bulletsLeft: 12
   firePoint: {fileID: 5113690289591136822}
   projectilePrefab: {fileID: 8842720117647156185, guid: 5c1e07b1e768c3b4789cf9b56cd9de27, type: 3}

@@ -18,16 +18,16 @@ public class HideControllerVisual : MonoBehaviour
     {
         if (grabInteractable == null) grabInteractable = GetComponent<XRGrabInteractable>();
 
-        grabInteractable.firstSelectEntered.AddListener(HideController);
-        grabInteractable.lastSelectExited.AddListener(ShowController);
+        grabInteractable.selectEntered.AddListener(HideController);
+        grabInteractable.selectExited.AddListener(ShowController);
     }
 
     private void OnDisable()
     {
         if (grabInteractable != null)
         {
-            grabInteractable.firstSelectEntered.RemoveListener(HideController);
-            grabInteractable.lastSelectExited.RemoveListener(ShowController);
+            grabInteractable.selectEntered.RemoveListener(HideController);
+            grabInteractable.selectExited.RemoveListener(ShowController);
         }
 
     }
