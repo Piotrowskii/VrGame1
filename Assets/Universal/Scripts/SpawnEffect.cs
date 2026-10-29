@@ -16,6 +16,7 @@ public class SpawnEffect : MonoBehaviour
     [SerializeField] private float shapeRadius = 0.1f;
     [SerializeField] private float particleDuration = 0.1f;
     [SerializeField] private Vector3 particleRotation = new Vector3(-90f,0f,0f);
+    [SerializeField] private float particleHeightOffset = 0f;
 
 
     private Vector3 originalScale;
@@ -29,10 +30,17 @@ public class SpawnEffect : MonoBehaviour
 
         if (poofPrefab != null)
         {
+            Vector3 spawnPosition = transform.position + Vector3.up * particleHeightOffset;
+
             poofInstance = Instantiate(
                 poofPrefab,
-                transform.position,
+                spawnPosition,
                 Quaternion.Euler(particleRotation)
+            );
+
+            poofInstance.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmittingAndClear
             );
 
             var main = poofInstance.main;
@@ -42,11 +50,6 @@ public class SpawnEffect : MonoBehaviour
 
             var shape = poofInstance.shape;
             shape.radius = shapeRadius;
-
-            poofInstance.Stop(
-                true,
-                ParticleSystemStopBehavior.StopEmittingAndClear
-            );
         }
     }
 
@@ -69,7 +72,7 @@ public class SpawnEffect : MonoBehaviour
     {
         if (poofInstance == null) return;
 
-        poofInstance.transform.position = transform.position;
+        poofInstance.transform.position = transform.position + Vector3.up * particleHeightOffset;
         poofInstance.transform.rotation = Quaternion.Euler(particleRotation);
 
         poofInstance.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);

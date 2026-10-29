@@ -473,8 +473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3d1f2565a178642a41b724065f5179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Destructable
-  shotSound: {fileID: 0}
-  shotVolume: 1
+  shotSound: {fileID: 8300000, guid: 140a176802a2dbf46ba7a0795af390c7, type: 3}
+  shotVolume: 0.5
   OnShot:
     m_PersistentCalls:
       m_Calls: []
@@ -484,6 +484,7 @@ MonoBehaviour:
   explosionRadius: 2
   upwardModifier: 0.1
   respawnDelay: 5
+  respawn: 1
   onSpawned:
     m_PersistentCalls:
       m_Calls:
@@ -543,6 +544,7 @@ MonoBehaviour:
   shapeRadius: 0.1
   particleDuration: 0.15
   particleRotation: {x: -90, y: 0, z: 0}
+  particleHeightOffset: 0
 --- !u!1 &1057754194654005220
 GameObject:
   m_ObjectHideFlags: 0

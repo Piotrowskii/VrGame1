@@ -16,6 +16,7 @@ public class Destructable : Shootable
 
     [Header("Respawn")]
     [SerializeField] private float respawnDelay = 5f;
+    [SerializeField] private bool respawn = true;
 
     [Header("Spawn animation")]
     [SerializeField] private UnityEvent onSpawned;
@@ -80,28 +81,24 @@ public class Destructable : Shootable
             );
         }
 
-        StartCoroutine(RespawnAfterDelay());
+        if (respawn)
+        {
+            StartCoroutine(RespawnAfterDelay());
+        }
+        else
+        {
+            StartCoroutine(DestroyAfterDelay());
+        }
     }
 
     private IEnumerator RespawnAfterDelay()
     {
         yield return new WaitForSeconds(respawnDelay);
 
-        foreach(var rb in shardBodies)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true;
-        }
 
         transform.SetPositionAndRotation(startPosition, startRotation);
 
-        foreach(var rb in shardBodies)
-        {
-            Transform t = rb.transform;
-            t.localPosition = startLocalPositions[t];
-            t.localRotation = startLocalRotations[t];
-        }
+        ResetShards();
 
         brokenModel.SetActive(false);
         intactModel.SetActive(true);
@@ -109,5 +106,28 @@ public class Destructable : Shootable
         isBroken = false;
 
         onSpawned?.Invoke();
+    }
+
+    private void ResetShards()
+    {
+        foreach (var rb in shardBodies)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        foreach (var rb in shardBodies)
+        {
+            Transform t = rb.transform;
+            t.localPosition = startLocalPositions[t];
+            t.localRotation = startLocalRotations[t];
+        }
+    }
+
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(respawnDelay);
+        Destroy(gameObject);
     }
 }

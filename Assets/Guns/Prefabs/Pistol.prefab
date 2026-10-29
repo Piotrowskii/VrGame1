@@ -54,7 +54,7 @@ MonoBehaviour:
   infiniteAmmo: 1
   bulletsLeft: 12
   firePoint: {fileID: 5113690289591136822}
-  projectilePrefab: {fileID: 8842720117647156185, guid: 5c1e07b1e768c3b4789cf9b56cd9de27, type: 3}
+  projectilePrefab: {fileID: 794486171895279158, guid: 5c1e07b1e768c3b4789cf9b56cd9de27, type: 3}
   projectileSpeed: 100
   shootDelayMs: 250
   shootAudioSource: {fileID: 4648626247395811088}
@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 2333522883304177116}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.104, y: 0.172, z: 0}
+  m_LocalPosition: {x: -0.549, y: 0.198, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -397,7 +397,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: ee5c572445086a041a8ba182fc9c4d78, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -657,7 +657,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -678,7 +678,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -753,7 +753,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: addf9787bc69c0147ac0113f0b9d3366, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0

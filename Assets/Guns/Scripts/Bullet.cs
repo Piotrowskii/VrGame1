@@ -6,20 +6,20 @@ public class Bullet : MonoBehaviour
     public int damage = 1;
 
     [Header("Lifetime")]
-    [SerializeField] private float maxDistanceFromOrigin = 100f;
+    [SerializeField] private float lifetime = 5f;
+
+    [Header("Visuals")]
+    [SerializeField] private GameObject bulletModel;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     private bool hasHit;
     private bool isDestroying;
 
-    private TrailRenderer trailRenderer;
-    private Renderer bulletRenderer;
     private Collider bulletCollider;
     private Rigidbody bulletRigidbody;
 
     private void Awake()
     {
-        trailRenderer = GetComponent<TrailRenderer>();
-        bulletRenderer = GetComponent<MeshRenderer>();
         bulletCollider = GetComponent<Collider>();
         bulletRigidbody = GetComponent<Rigidbody>();
     }
@@ -29,31 +29,26 @@ public class Bullet : MonoBehaviour
         if (trailRenderer != null)
         {
             trailRenderer.Clear();
-            trailRenderer.AddPosition(transform.position);
+            trailRenderer.emitting = true;
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if(transform.position.sqrMagnitude > maxDistanceFromOrigin * maxDistanceFromOrigin)
-        {
-            DestroyBullet();
-        }
+        Invoke(nameof(DestroyBullet), lifetime);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasHit) return;
+        if (hasHit || isDestroying) return;
 
+        hasHit = true;
         Shootable shootable = collision.collider.GetComponentInParent<Shootable>();
 
-        if(shootable != null)
+        if (shootable != null)
         {
-            hasHit = true;
             Vector3 hitPoint = collision.GetContact(0).point;
             shootable.RegisterHit(this, hitPoint);
-            DestroyBullet();
         }
+
+        DestroyBullet();
     }
 
     private void DestroyBullet()
@@ -61,18 +56,17 @@ public class Bullet : MonoBehaviour
         if (isDestroying) return;
         isDestroying = true;
 
-        if(bulletRenderer != null) bulletRenderer.enabled = false;
-        if(bulletCollider != null) bulletRenderer.enabled = false;
+        CancelInvoke(nameof(DestroyBullet));
+
+        if (bulletModel != null) bulletModel.SetActive(false);
+        if(bulletCollider != null) bulletCollider.enabled = false;
         if(bulletRigidbody != null)
         {
-            //bulletRigidbody.linearVelocity = Vector3.zero;
-            //bulletRigidbody.isKinematic = true;
+            bulletRigidbody.linearVelocity = Vector3.zero;
+            bulletRigidbody.isKinematic = true;
         }
-
         if (trailRenderer != null)
         {
-            trailRenderer.emitting = false;
-            trailRenderer.transform.SetParent(null, true);
             Destroy(gameObject, trailRenderer.time);
         }
         else
