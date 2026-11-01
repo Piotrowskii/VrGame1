@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Parameters")]
-    public int damage = 1;
+    public int damage = 20;
 
     [Header("Lifetime")]
     [SerializeField] private float lifetime = 5f;
@@ -40,12 +40,12 @@ public class Bullet : MonoBehaviour
         if (hasHit || isDestroying) return;
 
         hasHit = true;
-        Shootable shootable = collision.collider.GetComponentInParent<Shootable>();
+        IShootable shootable = collision.collider.GetComponentInParent<IShootable>();
 
         if (shootable != null)
         {
             Vector3 hitPoint = collision.GetContact(0).point;
-            shootable.RegisterHit(this, hitPoint);
+            shootable.OnShot(this, hitPoint);
         }
 
         DestroyBullet();

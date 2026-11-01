@@ -36,16 +36,16 @@ public class EnvironmentController : MonoBehaviour
     [SerializeField] private Light dayLight;
     [SerializeField] private Light nightLight;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem starsParticles;
+
+
+    private static readonly int SunDiskID = Shader.PropertyToID("_SunDisk");
     private static readonly int SunSizeID = Shader.PropertyToID("_SunSize");
-
     private static readonly int SunSizeConvergenceID = Shader.PropertyToID("_SunSizeConvergence");
-
     private static readonly int AtmosphereThicknessID = Shader.PropertyToID("_AtmosphereThickness");
-
     private static readonly int SkyTintID = Shader.PropertyToID("_SkyTint");
-
     private static readonly int GroundColorID = Shader.PropertyToID("_GroundColor");
-
     private static readonly int ExposureID = Shader.PropertyToID("_Exposure");
 
     private void OnEnable()
@@ -75,6 +75,8 @@ public class EnvironmentController : MonoBehaviour
 
         if (skyboxMaterial != null)
         {
+            skyboxMaterial.SetFloat(SunDiskID, isDay ? (daySunEnabled ? 2f : 0f) : (nightSunEnabled ? 2f : 0f)); 
+
             skyboxMaterial.SetFloat(SunSizeID, isDay ? daySunSize : nightSunSize);
 
             skyboxMaterial.SetFloat(SunSizeConvergenceID, isDay ? daySunSizeConvergence : 5f);
@@ -99,5 +101,8 @@ public class EnvironmentController : MonoBehaviour
         if (nightLight != null) nightLight.enabled = !isDay;
 
         DynamicGI.UpdateEnvironment();
+
+        if (isDay) starsParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        else starsParticles.Play();
     }
 }

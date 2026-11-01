@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3fcf5a463d3f24eb669aea559343af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  damage: 1
-  maxDistanceFromOrigin: 100
+  damage: 20
+  lifetime: 5
   bulletModel: {fileID: 3688594109955156482}
   trailRenderer: {fileID: 7841988338503612605}
 --- !u!54 &8274137656762747249

@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,10 @@ public class GameManager : MonoBehaviour
 
     public TimeOfDay CurrentTimeOfDay { get; set; } = TimeOfDay.Day;
     public UnityEvent<TimeOfDay> OnTimeOfDayChange = new UnityEvent<TimeOfDay>();
+
+    [SerializeField]
+    [Required]
+    public GameObject campfire;
 
     private void Awake()
     {

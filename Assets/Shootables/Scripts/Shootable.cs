@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class Shootable : MonoBehaviour
+public class Shootable : MonoBehaviour, IShootable
 {
     [Header("Hit Sound")]
     [SerializeField] private AudioClip shotSound;
@@ -21,6 +21,11 @@ public class Shootable : MonoBehaviour
 
         HandleShot(bullet, hitPoint);
         OnShot?.Invoke(this, bullet, hitPoint);
+    }
+
+    void IShootable.OnShot(Bullet bullet, Vector3 hitPoint)
+    {
+        RegisterHit(bullet, hitPoint);
     }
 
     protected virtual void HandleShot(Bullet bullet, Vector3 hitPoint)
