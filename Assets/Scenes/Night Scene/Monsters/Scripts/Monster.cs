@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -12,23 +13,18 @@ public class Monster : MonoBehaviour, IShootable
     private Healthbar healthbar;
     private Transform navMeshTargetTransform;
 
+    [SerializeField] private Vector3 damageTextOffset = new Vector3(0, 0.5f, 0);
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         healthbar = GetComponentInChildren<Healthbar>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         navMeshTargetTransform = GameManager.instance.campfire.transform;
         agent.SetDestination(navMeshTargetTransform.position);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnFireCircleEntered()
@@ -38,14 +34,17 @@ public class Monster : MonoBehaviour, IShootable
 
     public void OnShot(Bullet bullet, Vector3 shotPoint)
     {
-        if(currentHealth - bullet.damage > 0)
+        var damageTextPosition = healthbar.gameObject.transform.position + damageTextOffset;
+        FloatingTextManager.Instance.ShowText($"-{bullet.damage}", damageTextPosition, Color.red);
+
+        if (currentHealth - bullet.damage > 0)
         {
             currentHealth -= bullet.damage;
             healthbar.UpdateHealthBar(maxHealth, currentHealth);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

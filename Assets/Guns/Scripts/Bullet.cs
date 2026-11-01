@@ -46,6 +46,7 @@ public class Bullet : MonoBehaviour
         {
             Vector3 hitPoint = collision.GetContact(0).point;
             shootable.OnShot(this, hitPoint);
+            ParticleManager.Instance.PlayEffect(ParticleType.BulletImpact, hitPoint, new Vector3(0.25f,0.25f,0.25f));
         }
 
         DestroyBullet();
