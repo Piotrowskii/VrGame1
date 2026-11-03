@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1628977119142890713}
   - component: {fileID: 6387939813827855795}
   - component: {fileID: 8271996896118549853}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4208957282471990848}
   - component: {fileID: 4871105718941232198}
   - component: {fileID: 3136173249621427346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8425062699584062061}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4581344660425310744}
   - component: {fileID: 4648626247395811088}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shoot Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 7933555502486413303}
   - component: {fileID: 7882539332859527830}
   - component: {fileID: 6677738695592155251}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PistolMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5113690289591136822}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 2199447101657557409}
   - component: {fileID: 6006374936618217758}
   - component: {fileID: 3054848614148833222}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PistolModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1842027652455347990}
   - component: {fileID: 6192042907015309583}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Empty Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +848,7 @@ GameObject:
   - component: {fileID: 3516639426324852615}
   - component: {fileID: 6917216645052660357}
   - component: {fileID: 2179386828024786258}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PistolTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

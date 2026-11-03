@@ -50,8 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   damage: 20
   lifetime: 5
-  bulletModel: {fileID: 3688594109955156482}
+  projectileModel: {fileID: 3688594109955156482}
   trailRenderer: {fileID: 7841988338503612605}
+  type: 0
 --- !u!54 &8274137656762747249
 Rigidbody:
   m_ObjectHideFlags: 0

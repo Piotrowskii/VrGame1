@@ -53,7 +53,7 @@ public class Destructable : Shootable
         onSpawned?.Invoke();
     }
 
-    protected override void HandleShot(Bullet bullet, Vector3 hitPoint)
+    protected override void HandleShot(Projectile projectile, Vector3 hitPoint)
     {
         Break(hitPoint);
     }

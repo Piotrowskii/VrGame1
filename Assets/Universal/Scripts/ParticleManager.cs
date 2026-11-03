@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ParticleType
 {
-    BulletImpact
+    ProjectileImpact
 }
 
 [System.Serializable]

@@ -94,10 +94,16 @@ public class Weapon : MonoBehaviour
         var projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
         var rigidBody = projectile.GetComponent<Rigidbody>();
-        rigidBody.useGravity = false;
+        var projectileScript = projectile.GetComponent<Projectile>();
+
+        if(projectileScript != null)
+        {
+            projectileScript.EnableProjectile();
+        }
 
         if (rigidBody != null)
         {
+            rigidBody.useGravity = false;
             rigidBody.linearVelocity = firePoint.forward * projectileSpeed;
         }
 

@@ -32,14 +32,14 @@ public class Monster : MonoBehaviour, IShootable
         Debug.Log("Monster entered");
     }
 
-    public void OnShot(Bullet bullet, Vector3 shotPoint)
+    public void OnShot(Projectile projectile, Vector3 shotPoint)
     {
         var damageTextPosition = healthbar.gameObject.transform.position + damageTextOffset;
-        FloatingTextManager.Instance.ShowText($"-{bullet.damage}", damageTextPosition, Color.red);
+        FloatingTextManager.Instance.ShowText($"-{projectile.damage}", damageTextPosition, Color.red);
 
-        if (currentHealth - bullet.damage > 0)
+        if (currentHealth - projectile.damage > 0)
         {
-            currentHealth -= bullet.damage;
+            currentHealth -= projectile.damage;
             healthbar.UpdateHealthBar(maxHealth, currentHealth);
         }
         else

@@ -10,25 +10,25 @@ public class Shootable : MonoBehaviour, IShootable
     [Range(0f, 1f)]
     [SerializeField] private float shotVolume = 1f;
 
-    public UnityEvent<Shootable, Bullet, Vector3> OnShot;
+    public UnityEvent<Shootable, Projectile, Vector3> OnShot;
 
-    public virtual void RegisterHit(Bullet bullet, Vector3 hitPoint)
+    public virtual void RegisterHit(Projectile projectile, Vector3 hitPoint)
     {
         if(shotSound != null)
         {
             AudioSource.PlayClipAtPoint(shotSound, hitPoint, shotVolume);
         }
 
-        HandleShot(bullet, hitPoint);
-        OnShot?.Invoke(this, bullet, hitPoint);
+        HandleShot(projectile, hitPoint);
+        OnShot?.Invoke(this, projectile, hitPoint);
     }
 
-    void IShootable.OnShot(Bullet bullet, Vector3 hitPoint)
+    void IShootable.OnShot(Projectile projectile, Vector3 hitPoint)
     {
-        RegisterHit(bullet, hitPoint);
+        RegisterHit(projectile, hitPoint);
     }
 
-    protected virtual void HandleShot(Bullet bullet, Vector3 hitPoint)
+    protected virtual void HandleShot(Projectile projectile, Vector3 hitPoint)
     {
 
     }
