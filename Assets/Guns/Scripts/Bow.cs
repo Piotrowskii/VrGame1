@@ -37,21 +37,54 @@ public class Bow : MonoBehaviour
         xrGrabInteractable = GetComponent<XRGrabInteractable>();
     }
 
+    private void OnEnable()
+    {
+        xrGrabInteractable.selectEntered.AddListener(OnBowGrabbed);
+        xrGrabInteractable.selectExited.AddListener(OnBowDropped);
+    }
+
+    private void OnDisable()
+    {
+        xrGrabInteractable.selectEntered.RemoveListener(OnBowGrabbed);
+        xrGrabInteractable.selectExited.RemoveListener(OnBowDropped);
+    }
+
     private void Update()
     {
+        if (loadedArrow != null && xrGrabInteractable.isSelected && arrowGrabController != null)
+        {
+            Transform bowHand = xrGrabInteractable.firstInteractorSelecting.GetAttachTransform(xrGrabInteractable);
+            Vector3 aimDirection = bowHand.position - arrowGrabController.position;
+
+            if (aimDirection.sqrMagnitude > 0.0001f)
+            {
+                transform.rotation = Quaternion.LookRotation(aimDirection, bowHand.up);
+            }
+
+            pullAmount = CalculatePosition(arrowGrabController.position);
+
+            pullTransform.position = Vector3.Lerp(
+                pullStart.position,
+                pullEnd.position,
+                pullAmount
+            );
+        }
+
         UpdateBowString();
+    }
 
-        if (loadedArrow == null) return;
-        if (!xrGrabInteractable.isSelected) return;
-        if (arrowGrabController == null) return;
+    private void OnBowGrabbed(SelectEnterEventArgs args)
+    {
+        xrGrabInteractable.trackRotation = true;
+    }
 
-        pullAmount = CalculatePosition(arrowGrabController.position);
-
-        pullTransform.position = Vector3.Lerp(
-            pullStart.position,
-            pullEnd.position,
-            pullAmount
-        );
+    private void OnBowDropped(SelectExitEventArgs args)
+    {
+        if(loadedArrow != null)
+        {
+            Shoot();
+        }
+        xrGrabInteractable.trackRotation = true;
     }
 
     public void TryLoadArrow(Collider other)
@@ -60,7 +93,7 @@ public class Bow : MonoBehaviour
 
         Arrow arrow = other.GetComponentInParent<Arrow>();
 
-        if (arrow == null) return;
+        if (arrow == null || arrow.isEnabled || arrow.isAttachedToTheBow) return;
         if (loadedArrow != null) return;
 
         LoadArrow(arrow);
@@ -79,6 +112,7 @@ public class Bow : MonoBehaviour
     private void LoadArrow(Arrow arrow)
     {
         loadedArrow = arrow;
+        xrGrabInteractable.trackRotation = false;
 
         arrow.AttachToBow();
         arrow.OnArrowReleased.AddListener(Shoot);
@@ -108,6 +142,7 @@ public class Bow : MonoBehaviour
     private void Shoot()
     {
         if (loadedArrow == null) return;
+        xrGrabInteractable.trackRotation = true;
 
         Arrow arrow = loadedArrow;
         arrow.OnArrowReleased.RemoveListener(Shoot);

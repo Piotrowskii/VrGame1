@@ -18,9 +18,9 @@ TagManager:
   - Monster
   - FireCircle
   - Bow
-  - 
-  - 
-  - 
+  - Quiver
+  - DirectGrabOnly
+  - FarGrabOnly
   - 
   - 
   - 

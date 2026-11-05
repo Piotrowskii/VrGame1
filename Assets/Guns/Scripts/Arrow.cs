@@ -12,12 +12,13 @@ public class Arrow : Projectile
 
     public UnityEvent OnArrowReleased;
 
-    private bool isAttachedToTheBow { get; set; }
+    public bool isAttachedToTheBow { get; set; }
 
     private XRGrabInteractable xrGrabInteractable;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         xrGrabInteractable = GetComponent<XRGrabInteractable>();
         if (ArrowGrabTransform != null)
         {

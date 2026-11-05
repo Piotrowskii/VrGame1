@@ -23,12 +23,12 @@ public class Projectile : MonoBehaviour
 
     private bool hasHit;
     private bool isDestroying;
-    private bool isEnabled;
+    public bool isEnabled;
 
     private Collider projectileCollider;
     private Rigidbody projectileRigidbody;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         projectileCollider = GetComponent<Collider>();
         projectileRigidbody = GetComponent<Rigidbody>();
