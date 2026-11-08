@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7582136643599644397}
   - component: {fileID: 6095792929485916715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tree1 Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 7587952681479429999}
   - component: {fileID: 5031811077027460513}
   - component: {fileID: 5243585532105375122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tree1Plane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

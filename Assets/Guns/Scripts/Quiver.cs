@@ -10,9 +10,11 @@ public class Quiver : MonoBehaviour
     [SerializeField] private GameObject spawnPrefab;
 
     private XRGrabInteractable xrGrabInteractable;
+    private AudioSource spawnPrefabAudioSource;
 
     private void Awake()
     {
+        spawnPrefabAudioSource = GetComponent<AudioSource>();
         xrGrabInteractable = GetComponent<XRGrabInteractable>();
         xrGrabInteractable.trackPosition = false;
         xrGrabInteractable.trackRotation = false;
@@ -38,6 +40,11 @@ public class Quiver : MonoBehaviour
     {
         var interactor = args.interactorObject;
         if (interactor == null || spawnPrefab == null) return;
+
+        if(spawnPrefabAudioSource != null)
+        {
+            spawnPrefabAudioSource.Play();
+        }
 
         Transform handTransform = interactor.GetAttachTransform(xrGrabInteractable);
         GameObject prefabObj = Instantiate(spawnPrefab, handTransform.position, handTransform.rotation);

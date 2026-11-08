@@ -1,5 +1,3 @@
-using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class EnvironmentController : MonoBehaviour
@@ -33,7 +31,7 @@ public class EnvironmentController : MonoBehaviour
     [SerializeField] private float nightReflectionIntensity = 0.25f;
 
     [Header("Lighting")]
-    [SerializeField] private Light dayLight;
+    [SerializeField] private Light[] dayLights;
     [SerializeField] private Light nightLight;
 
     [Header("Particles")]
@@ -96,7 +94,13 @@ public class EnvironmentController : MonoBehaviour
 
         RenderSettings.reflectionIntensity = isDay ? dayReflectionIntensity : nightReflectionIntensity;
 
-        if (dayLight != null) dayLight.enabled = isDay;
+        if(dayLights != null && dayLights.Length > 0)
+        {
+            foreach(var light in dayLights)
+            {
+                if (light != null) light.enabled = isDay;
+            }
+        }
 
         if (nightLight != null) nightLight.enabled = !isDay;
 
