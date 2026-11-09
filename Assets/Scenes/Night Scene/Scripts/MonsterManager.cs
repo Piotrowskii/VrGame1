@@ -1,47 +1,224 @@
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+
+public enum EnemyType
+{
+    Skull
+}
+
+[System.Serializable]
+public class SpawnCircleDescription
+{
+    public float spawnInterval = 0.5f;
+
+    public List<(EnemyType type, int amount)> enemies = new();
+}
+
+public class WaveDescription
+{
+    public List<SpawnCircleDescription> circles = new(); 
+}
 
 public class MonsterManager : MonoBehaviour
 {
     [Header("Monster Setup")]
     [SerializeField] private GameObject skullMonsterPrefab;
-    [SerializeField] private float minSpawnRadius = 10f;
+    [SerializeField] private float minSpawnRadius = 20f;
 
-    [Header("Debug Spawning")]
-    [SerializeField] private bool enableDebugSpawns = true;
-    [SerializeField] private float spawnInterval = 5f;
-    private float spawnTimer = 0f;
+    [Header("Spawn circle")]
+    [SerializeField] private GameObject spawnCriclePrefab;
+    [SerializeField] private float spawnWarningDuration = 3f;
+    [SerializeField] private float navMeshSampleDistance = 2f;
 
-    private void Update()
+    private HashSet<Monster> currentCircleMonsters = new HashSet<Monster>();
+    private bool isWaveRunning;
+
+    private WaveDescription exampleWave = new WaveDescription()
     {
-        if (enableDebugSpawns)
+        circles = new List<SpawnCircleDescription>()
         {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnInterval)
+            new SpawnCircleDescription()
             {
-                SpawnMonster();
-                spawnTimer = 0f;
+                spawnInterval = 1.5f,
+                enemies = new List<(EnemyType, int)>
+                {
+                    (EnemyType.Skull, 10)
+                }
+            },
+            new SpawnCircleDescription()
+            {
+                spawnInterval = 1f,
+                enemies = new List<(EnemyType, int)>
+                {
+                    (EnemyType.Skull, 20),
+                }
+            },
+
+            new SpawnCircleDescription()
+            {
+                spawnInterval = 0.5f,
+                enemies = new List<(EnemyType, int)>
+                {
+                    (EnemyType.Skull, 30)
+                }
+            }
+        }
+    };
+
+    private void Start()
+    {
+        StartWave(exampleWave);
+    }
+
+    private void StartWave(WaveDescription wave)
+    {
+        if (isWaveRunning)
+        {
+            Debug.LogWarning("A wave is already running");
+            return;
+        }
+
+        if (wave == null || wave.circles == null || wave.circles.Count == 0)
+        {
+            Debug.LogWarning("Wave has no spawn circles!");
+            return;
+        }
+
+        StartCoroutine(SpawnWaveRoutine(wave));
+    }
+
+    private IEnumerator SpawnWaveRoutine(WaveDescription wave)
+    {
+        isWaveRunning = true;
+
+        foreach(var circleDescription in wave.circles)
+        {
+            var circle = CreateSpawnCircle();
+
+            if (circle == null) continue;
+
+            circle.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(spawnWarningDuration);
+
+            yield return StartCoroutine(SpawnEnemiesInCircle(circle, circleDescription));
+
+            yield return StartCoroutine(WaitForCircleEnemiesToDie());
+
+            Destroy(circle.gameObject);
+
+            currentCircleMonsters.Clear();
+        }
+
+        isWaveRunning = false;
+    }
+
+    private SpawnCircle CreateSpawnCircle()
+    {
+        if(spawnCriclePrefab == null)
+        {
+            Debug.LogWarning("Spawn circle prefab is missing");
+            return null;
+        }
+
+        var position = GetRandomSpawnPoint();
+
+        var circleObject = Instantiate(spawnCriclePrefab, position, Quaternion.identity);
+
+        var spawnCircleComponent = circleObject.GetComponent<SpawnCircle>();
+
+        if(spawnCircleComponent == null)
+        {
+            Debug.LogWarning("Spawn circle doesn't have spawnCircle component");
+            return null;
+        }
+
+        return circleObject.GetComponent<SpawnCircle>();
+    }
+
+    private IEnumerator SpawnEnemiesInCircle(SpawnCircle circle, SpawnCircleDescription description)
+    {
+        currentCircleMonsters.Clear();
+
+        foreach(var (enemyType, amount) in description.enemies)
+        {
+            for(int i = 0; i < amount; i++)
+            {
+                if(circle == null) yield break;
+
+                var position = circle.GetRandomSpawnPoint();
+
+                SpawnMonsterAt(position, enemyType);
+
+                if(description.spawnInterval > 0f)
+                {
+                    yield return new WaitForSeconds(description.spawnInterval);
+                }
             }
         }
     }
 
-    public void SpawnMonster()
+    private void SpawnMonsterAt(Vector3 position, EnemyType enemyType)
     {
-        if(skullMonsterPrefab == null)
+        GameObject prefab = GetEnemyPrefab(enemyType);
+
+        if(prefab == null)
         {
-            Debug.LogWarning($"Skull Monster Prefab is not assigned in MonsterManager!");
+            Debug.LogWarning($"Missing prefab for {enemyType}");
             return;
         }
 
-        Vector3 spawnPosition = GetRandomSpawnPoint();
-
-        if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+        if(!NavMesh.SamplePosition(position, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
         {
-            Instantiate(skullMonsterPrefab, hit.position, Quaternion.identity);
+            Debug.LogWarning("Couldn't find a valid NavMesh spawn position");
+            return;
         }
-        else
+
+        var campfireDirection = (GameManager.instance.campfire.transform.position - hit.position).normalized;
+        campfireDirection.y = 0;
+        var monsterRotation = Quaternion.LookRotation(campfireDirection);
+
+        var monsterObject = Instantiate(prefab, hit.position, monsterRotation);
+
+        var monster = monsterObject.GetComponent<Monster>();
+
+        if (monster == null)
         {
-            Instantiate(skullMonsterPrefab, spawnPosition, Quaternion.identity);
+            Debug.LogWarning("Enemy prefab is missing Monster component");
+            Destroy(monsterObject);
+            return;
+        }
+
+        currentCircleMonsters.Add(monster);
+
+        monster.OnDeath.AddListener(() => HandleMonsterDeath(monster));
+    }
+
+    private GameObject GetEnemyPrefab(EnemyType enemyType)
+    {
+        switch (enemyType)
+        {
+            case EnemyType.Skull:
+                return skullMonsterPrefab;
+            default:
+                return null;
+        }
+    }
+
+    private void HandleMonsterDeath(Monster monster)
+    {
+        currentCircleMonsters.Remove(monster);
+    }
+
+    private IEnumerator WaitForCircleEnemiesToDie()
+    {
+        while (currentCircleMonsters.Count > 0)
+        {
+            yield return null;
         }
     }
 

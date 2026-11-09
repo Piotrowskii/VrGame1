@@ -8,13 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1602254932551513044, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2361108564382638416, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
       propertyPath: m_Name
       value: SkullMonster
       objectReference: {fileID: 0}
     - target: {fileID: 4264616946896075840, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
       propertyPath: maxHealth
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4264616946896075840, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
       propertyPath: modelPrefab
@@ -22,7 +26,51 @@ PrefabInstance:
       objectReference: {fileID: 6555666018733894421, guid: b2481c2b0339356439db50bb315e075a, type: 3}
     - target: {fileID: 4264616946896075840, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
       propertyPath: currentHealth
-      value: 40
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264616946896075840, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: scaleMultiplier.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264616946896075840, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: scaleMultiplier.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264616946896075840, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: scaleMultiplier.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: drag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: brokenPrefab
+      value: 
+      objectReference: {fileID: 8343713661231172995, guid: edf2bc737772c8647b3a7d847b82268f, type: 3}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: explosionForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: upwardModifier
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: explosionRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: scaleMultiplier.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: scaleMultiplier.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445098091939408031, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
+      propertyPath: scaleMultiplier.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5170287319434665934, guid: 82a10cc62d4c1a14dbafd9ed6c36ba69, type: 3}
       propertyPath: m_LocalPosition.x

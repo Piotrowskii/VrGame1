@@ -1,9 +1,9 @@
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(DestructionEffect))]
 public class Monster : MonoBehaviour, IShootable
 {
 
@@ -13,23 +13,34 @@ public class Monster : MonoBehaviour, IShootable
 
     [Header("Model")]
     [SerializeField] private GameObject modelPrefab;
+    [SerializeField] private Vector3 scaleMultiplier = Vector3.one;
 
     [Header("Damage text")]
     [SerializeField] private Vector3 damageTextOffset = new Vector3(0, 0.5f, 0);
 
-    private Animator animator;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 3.5f;
+
+    public UnityEvent OnDeath = new();
+
+    private bool isDead = false;
     private NavMeshAgent agent;
     private Healthbar healthbar;
     private Transform navMeshTargetTransform;
+    private DestructionEffect destructionEffect;
+    private GameObject modelInstance;
 
     private void Awake()
     {
+        destructionEffect = GetComponent<DestructionEffect>();
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = moveSpeed;
+
         healthbar = GetComponentInChildren<Healthbar>();
         if (modelPrefab != null)
         {
-            Instantiate(modelPrefab, transform);
-            animator = GetComponentInChildren<Animator>();
+            modelInstance = Instantiate(modelPrefab, transform);
+            modelInstance.transform.localScale = Vector3.Scale(modelInstance.transform.localScale, scaleMultiplier);
         }
     }
 
@@ -41,22 +52,49 @@ public class Monster : MonoBehaviour, IShootable
 
     public void OnFireCircleEntered()
     {
-        Debug.Log("Monster entered");
+        if (isDead) return;
+        Die(transform.position);
     }
 
     public void OnShot(Projectile projectile, Vector3 shotPoint)
     {
+        if (isDead) return;
+
+        currentHealth -= projectile.damage;
+        currentHealth = Mathf.Max(0, currentHealth);
+
         var damageTextPosition = healthbar.gameObject.transform.position + damageTextOffset;
         FloatingTextManager.Instance.ShowText($"-{projectile.damage}", damageTextPosition, Color.red);
 
-        if (currentHealth - projectile.damage > 0)
+        healthbar.UpdateHealthBar(maxHealth, currentHealth);
+
+        if (currentHealth <= 0)
         {
-            currentHealth -= projectile.damage;
-            healthbar.UpdateHealthBar(maxHealth, currentHealth);
+            Die(shotPoint);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    private void Die(Vector3 shotPoint)
+    {
+        if (isDead) return;
+
+        isDead = true;
+
+        agent.isStopped = true;
+        agent.enabled = false;
+
+        if(modelInstance != null) modelInstance.SetActive(false);
+        if(healthbar != null) healthbar.SetGameObjectActive(false);
+        
+
+        OnDeath.Invoke();
+
+        destructionEffect.Spawn(
+            transform.position,
+            transform.rotation,
+            shotPoint
+        );
+
+        Destroy(gameObject, destructionEffect.DestroyDelay);
     }
 }

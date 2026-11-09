@@ -6,7 +6,7 @@ public class FireCircle : MonoBehaviour
     {
         Monster monster = other.GetComponentInParent<Monster>();
 
-        if(monster != null)
+        if (monster != null)
         {
             monster.OnFireCircleEntered();
         }
