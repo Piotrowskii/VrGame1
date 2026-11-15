@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3815055698893042332}
   - component: {fileID: 1375070923107436118}
   - component: {fileID: 4303511697534421551}
-  - component: {fileID: 893589176553976385}
+  - component: {fileID: 7220388424044024225}
   m_Layer: 8
   m_Name: ArrowModel
   m_TagString: Untagged
@@ -116,7 +116,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0012690041, y: 0.001460051, z: 0.014559846}
   m_Center: {x: 0.00017248771, y: 0, z: 0}
---- !u!114 &893589176553976385
+--- !u!114 &7220388424044024225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

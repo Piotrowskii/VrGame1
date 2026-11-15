@@ -14,9 +14,9 @@ public class Bow : MonoBehaviour
     [SerializeField] private Transform pullTransform;
 
 
-    [Header("Input")]
-    [SerializeField] private InputActionReference holdAction;
-    [SerializeField] private float inputThreshold = 0.5f;
+    //[Header("Input")]
+    //[SerializeField] private InputActionReference holdAction;
+    //[SerializeField] private float inputThreshold = 0.5f;
 
     [Header("Shooting")]
     [SerializeField] private float shootForce = 30f;
