@@ -57,7 +57,7 @@ public class Monster : MonoBehaviour, IShootable
     public void OnShieldCircleEntered()
     {
         if (isDead) return;
-        Die(transform.position);
+        Die(transform.position, false);
     }
 
     public void OnShot(Projectile projectile, Vector3 shotPoint)
@@ -78,7 +78,7 @@ public class Monster : MonoBehaviour, IShootable
         }
     }
 
-    private void Die(Vector3 shotPoint)
+    private void Die(Vector3 shotPoint, bool playSound = true)
     {
         if (isDead) return;
 
@@ -90,7 +90,7 @@ public class Monster : MonoBehaviour, IShootable
         if(modelInstance != null) modelInstance.SetActive(false);
         if(healthbar != null) healthbar.SetGameObjectActive(false);
 
-        SoundManager.Instance.PlaySound(SoundType.PointSound);
+        if(playSound) SoundManager.Instance.PlaySound(SoundType.PointSound);
 
         OnDeath.Invoke();
 
