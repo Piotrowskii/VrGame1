@@ -57,7 +57,6 @@ public class MonsterManager : MonoBehaviour
                     (EnemyType.Skull, 20),
                 }
             },
-
             new SpawnCircleDescription()
             {
                 spawnInterval = 0.5f,
@@ -65,7 +64,23 @@ public class MonsterManager : MonoBehaviour
                 {
                     (EnemyType.Skull, 30)
                 }
-            }
+            },
+            new SpawnCircleDescription()
+            {
+                spawnInterval = 1f,
+                enemies = new List<(EnemyType, int)>
+                {
+                    (EnemyType.Skull, 20),
+                }
+            },
+            new SpawnCircleDescription()
+            {
+                spawnInterval = 1.5f,
+                enemies = new List<(EnemyType, int)>
+                {
+                    (EnemyType.Skull, 10)
+                }
+            },
         }
     };
 

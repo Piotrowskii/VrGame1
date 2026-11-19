@@ -20,6 +20,9 @@ public class Bow : MonoBehaviour
 
     [Header("Shooting")]
     [SerializeField] private float shootForce = 30f;
+    [SerializeField] private AudioSource shootSound;
+    [SerializeField] private AudioSource pullSound;
+    [SerializeField] private float pullSoundThreshold = 0.05f;
 
     [Header("String")]
     [SerializeField] private LineRenderer bowString;
@@ -28,6 +31,7 @@ public class Bow : MonoBehaviour
 
     private XRGrabInteractable xrGrabInteractable;
 
+    private bool hasPlayedPullSound;
     private float pullAmount;
     private Arrow loadedArrow;
     private Transform arrowGrabController;
@@ -62,6 +66,15 @@ public class Bow : MonoBehaviour
             }
 
             pullAmount = CalculatePosition(arrowGrabController.position);
+
+            if (!hasPlayedPullSound && pullAmount > pullSoundThreshold)
+            {
+                if (pullSound != null)
+                {
+                    pullSound.Play();
+                }
+                hasPlayedPullSound = true;
+            }
 
             pullTransform.position = Vector3.Lerp(
                 pullStart.position,
@@ -145,6 +158,16 @@ public class Bow : MonoBehaviour
         if (loadedArrow == null) return;
         xrGrabInteractable.trackRotation = true;
 
+        if (pullSound != null && pullSound.isPlaying)
+        {
+            pullSound.Stop();
+        }
+
+        if (shootSound != null)
+        {
+            shootSound.Play();
+        }
+
         Arrow arrow = loadedArrow;
         arrow.OnArrowReleased.RemoveListener(Shoot);
 
@@ -168,6 +191,7 @@ public class Bow : MonoBehaviour
 
         pullTransform.position = pullStart.position;
         pullAmount = 0f;
+        hasPlayedPullSound = false;
     }
 
     private float CalculatePosition(Vector3 pullPosition)

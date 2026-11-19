@@ -113,8 +113,8 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
-/Assets/Fantasy*
-/Assets/IL3DN*
-/Assets/Handpainted_Grass_and_Ground_Textures*
+#/Assets/Fantasy*
+#/Assets/IL3DN*
+#/Assets/Handpainted_Grass_and_Ground_Textures*
 
-/Assets/Downloaded*
+#/Assets/Downloaded*

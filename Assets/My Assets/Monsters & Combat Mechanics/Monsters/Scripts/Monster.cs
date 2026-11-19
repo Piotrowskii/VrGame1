@@ -21,6 +21,10 @@ public class Monster : MonoBehaviour, IShootable
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 3.5f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField, Range(0f, 1f)] private float deathVolume = 1f;
+
     public UnityEvent OnDeath = new();
 
     private bool isDead = false;
@@ -85,7 +89,8 @@ public class Monster : MonoBehaviour, IShootable
 
         if(modelInstance != null) modelInstance.SetActive(false);
         if(healthbar != null) healthbar.SetGameObjectActive(false);
-        
+
+        SoundManager.Instance.PlaySound(SoundType.PointSound);
 
         OnDeath.Invoke();
 

@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [RequireComponent(typeof(XRGrabInteractable))]
+[RequireComponent (typeof(AudioSource))]
 public class Quiver : MonoBehaviour
 {
     [Header("Spawning prefab")]
