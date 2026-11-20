@@ -50,7 +50,7 @@ public class Monster : MonoBehaviour, IShootable
 
     void Start()
     {
-        navMeshTargetTransform = GameManager.instance.tower.transform;
+        navMeshTargetTransform = GameManager.Instance.Tower.transform;
         agent.SetDestination(navMeshTargetTransform.position);
     }
 

@@ -48,18 +48,18 @@ public class EnvironmentController : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.instance.OnTimeOfDayChange.AddListener(HandleTimeOfDayChange);
+        GameManager.Instance.OnTimeOfDayChange.AddListener(HandleTimeOfDayChange);
     }
 
     private void OnDisable()
     {
-        GameManager.instance.OnTimeOfDayChange.RemoveListener(HandleTimeOfDayChange);
+        GameManager.Instance.OnTimeOfDayChange.RemoveListener(HandleTimeOfDayChange);
     }
 
     private void Start()
     {
         if (skyboxMaterial != null) RenderSettings.skybox = skyboxMaterial;
-        SetEnvironment(GameManager.instance.CurrentTimeOfDay);
+        SetEnvironment(GameManager.Instance.CurrentTimeOfDay);
     }
 
     private void HandleTimeOfDayChange(TimeOfDay time)

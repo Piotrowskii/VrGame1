@@ -193,7 +193,7 @@ public class MonsterManager : MonoBehaviour
             return;
         }
 
-        var towerDirection = (GameManager.instance.tower.transform.position - hit.position).normalized;
+        var towerDirection = (GameManager.Instance.Tower.transform.position - hit.position).normalized;
         towerDirection.y = 0;
         var monsterRotation = Quaternion.LookRotation(towerDirection);
 
@@ -239,8 +239,8 @@ public class MonsterManager : MonoBehaviour
 
     private Vector3 GetRandomSpawnPoint()
     {
-        var towerTransform = GameManager.instance.tower.transform;
-        float maxRadius = GameManager.instance.playAreaRadius;
+        var towerTransform = GameManager.Instance.Tower.transform;
+        float maxRadius = GameManager.Instance.PlayAreaRadius;
 
         float angle = Random.Range(0f, Mathf.PI * 2f);
         float distance = Mathf.Sqrt(Random.Range(minSpawnRadius * minSpawnRadius, maxRadius * maxRadius));

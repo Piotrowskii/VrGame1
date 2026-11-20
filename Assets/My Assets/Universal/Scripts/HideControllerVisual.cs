@@ -40,11 +40,11 @@ public class HideControllerVisual : MonoBehaviour
 
         if (parent.name.Contains("Left"))
         {
-            VRHelper.instance.HideLeftController();
+            VRHelper.Instance.HideLeftController();
         }
         else
         {
-            VRHelper.instance.HideRightController();
+            VRHelper.Instance.HideRightController();
         }
     }
 
@@ -56,11 +56,11 @@ public class HideControllerVisual : MonoBehaviour
 
         if (parent.name.Contains("Left"))
         {
-            VRHelper.instance.ShowLeftController();
+            VRHelper.Instance.ShowLeftController();
         }
         else
         {
-            VRHelper.instance.ShowRightController();
+            VRHelper.Instance.ShowRightController();
         }
     }
 }

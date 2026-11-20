@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class VRHelper : MonoBehaviour
 {
-    public static VRHelper instance;
+    public static VRHelper Instance;
 
     [Header("controllers")]
     public GameObject leftControllerVisuals;
@@ -14,7 +14,7 @@ public class VRHelper : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
+        Instance = this;
     }
 
     public void HideLeftController()
